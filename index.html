@@ -9,7 +9,7 @@
         <h1>
             Acme Faker Favorites
         </h1>
-
+        <div id='root'></div>
     </body>
     <script>
         const userList = [];        
@@ -39,6 +39,8 @@
             user.isFavorite = true;
         }
         console.log(userList);
-
+        
+        const root = document.querySelector('#root');
+        ReactDOM.render(React.createElement('hr'), root);
     </script>
 </html>

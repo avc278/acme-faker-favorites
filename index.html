@@ -39,8 +39,41 @@
             user.isFavorite = true;
         }
         console.log(userList);
-        
+
+        class App extends React.Component{
+            constructor(props) {
+                super();
+                this.state = {
+                    userList,
+                    count: 0
+                };
+            }
+
+            render() {
+                const toggleFavorite = (userToToggle) => {
+                    const updated = this.state.userList.map( user => {
+                        if (user === userToToggle) {
+                            user.isFavorite = !user.isFavorite;
+                        }
+                        return user;
+                    });
+
+                    this.setState({userList: updated });
+                };
+
+                const { userList, count } = this.state;
+                const lis = userList.map( user => {
+                    if (user.isFavorite) {
+                        return React.createElement('li', { className: 'isFavorite', key: user.email, onClick: () => { toggleFavorite(user) } }, user.name)
+                    }
+                    else {
+                        return React.createElement('li', { className: ' ', key: user.email, onClick: () => { toggleFavorite(user) } }, user.name)
+                    }
+                })
+                return React.createElement('ul', null, lis)
+            }
+        }
         const root = document.querySelector('#root');
-        ReactDOM.render(React.createElement('hr'), root);
+        ReactDOM.render(React.createElement(App), root);
     </script>
 </html>
